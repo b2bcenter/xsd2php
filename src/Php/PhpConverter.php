@@ -258,9 +258,10 @@ class PhpConverter extends AbstractConverter
             }
 
             if (($this->isArrayType($type) || $this->isArrayNestedElement($type)) && !$force) {
-
-                $this->classes[spl_object_hash($type)]['skip'] = true;
-                $this->skipByType[spl_object_hash($class)] = true;
+                if (!$this->typeHasElements($type)) {
+                    $this->classes[spl_object_hash($type)]['skip'] = true;
+                    $this->skipByType[spl_object_hash($class)] = true;
+                }
 
                 return $class;
             }
@@ -273,6 +274,17 @@ class PhpConverter extends AbstractConverter
         }
 
         return $this->classes[spl_object_hash($type)]['class'];
+    }
+
+    private function typeHasElements(Type $type): bool
+    {
+        $type_hash = spl_object_hash($type);
+        foreach ($type->getSchema() as $element) {
+            if (spl_object_hash($element->getType()) === $type_hash) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
