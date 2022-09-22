@@ -10,7 +10,7 @@ class ShortNamingStrategy extends AbstractNamingStrategy
     public function getTypeName(Type $type)
     {
         $name = $this->classify($type->getName());
-        if ($name && substr($name, -4) !== 'Type') {
+        if ($name && (substr($name, -4) !== 'Type' || substr($type->getName(), -4) === 'Type')) {
             $name .= 'Type';
         }
 
