@@ -1,5 +1,8 @@
 {
-  "name": "goetas-webservices/xsd2php",
+  "name": "b2bcenter/xsd2php",
+  "replace": {
+    "goetas-webservices/xsd2php": "^0.4"
+  },
   "description": "Convert XSD  (XML Schema) definitions into PHP classes and JMS metadata",
   "type": "library",
   "authors": [
